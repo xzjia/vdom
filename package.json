@@ -1,0 +1,27 @@
+{
+  "name": "vdom",
+  "version": "1.0.0",
+  "description": "Create your own virtual dom implementation",
+  "main": "app.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "open './tests/testrunner.html'",
+    "eslint": "eslint --fix --ext .js tests app.js",
+    "precommit": "pretty-quick --staged"
+  },
+  "author": "Xiaozhou JIA <jiaxiaozhou@gmail.com>",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "husky": "^0.14.3",
+    "mocha": "^5.0.5",
+    "prettier": "^1.11.1",
+    "pretty-quick": "^1.4.1"
+  },
+  "engines": {
+    "node": "^9.10.0",
+    "yarn": "^1.5.0"
+  }
+}
