@@ -1,5 +1,11 @@
 // eslint-disable-next-line no-unused-vars
-function createVDOM(type, props, ...children) {}
+function createVDOM(type, props = null, ...children) {
+  return {
+    type: type,
+    props: props,
+    children: children,
+  };
+}
 
 // eslint-disable-next-line no-unused-vars
 function createElement(node) {}
