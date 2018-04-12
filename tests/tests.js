@@ -7,7 +7,13 @@ describe("vDOM implementation", () => {
   beforeEach(() => {
     // here are some test elements (aka seed) to help you get started
     aProps = { href: "https://codechrysalis.io" };
-    divElement = createVDOM("div", null, "text node", createVDOM("img"));
+    divElement = createVDOM(
+      "div",
+      null,
+      createVDOM("div", null, "Great Grandchild"),
+      "text node",
+      createVDOM("img")
+    );
     spanElement = createVDOM("span");
     textElement = "Click Me";
     seedElements = createVDOM(
@@ -22,23 +28,43 @@ describe("vDOM implementation", () => {
   // we have some spec titles to help you get started
 
   describe("createVDOM function", () => {
-    it("should have a function called 'createVDOM'", () => {});
+    it("should have a function called 'createVDOM'", () => {
+      expect(createVDOM).to.be.a("function");
+    });
 
-    it("should return an object with type, props, and children properties", () => {});
+    it("should return an object with type, props, and children properties", () => {
+      const vdom = createVDOM("p", null);
+      expect(vdom).to.be.an("object");
+      expect(vdom.type).to.equal("p");
+      expect(vdom.props).to.be.null;
+      expect(vdom.children).to.deep.equal([]);
+    });
 
-    it("should return a string for type", () => {});
+    it("should return a string for type", () => {
+      expect(seedElements.type).to.be.a("string");
+    });
 
-    it("should return an array of children objects", () => {});
+    it("should return an array of children objects", () => {
+      expect(seedElements.children).to.be.an("array");
+    });
 
-    it("should return a object of props", () => {});
+    it("should return a object of props", () => {
+      expect(seedElements.props).to.be.an("object");
+    });
 
-    it("should return an array of grandchildren objects", () => {});
+    it("should return an array of grandchildren objects", () => {
+      expect(seedElements.children[0].children).to.be.an("array");
+    });
 
     it("should return an array of great-grandchildren objects", () => {
       // maybe you need to edit the seed elements above a little for this one
+      expect(seedElements.children[0].children[0].children).to.be.an("array");
     });
 
-    it("should have a string value to represent a text node when given a string (aka text element)", () => {});
+    it("should have a string value to represent a text node when given a string (aka text element)", () => {
+      const localText = createVDOM("text", null, "Click Me");
+      expect(localText.children[0]).to.be.a("string");
+    });
   });
 
   describe("createElement function", () => {
