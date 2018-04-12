@@ -72,7 +72,7 @@ describe("vDOM implementation", () => {
 
     beforeEach(() => {
       // create your own seed elements or use the ones created above!
-      aProps = { href: "https://codechrysalis.io" };
+      aProps = { href: "https://codechrysalis.io/" };
       divElement = createVDOM(
         "div",
         null,
@@ -121,16 +121,19 @@ describe("vDOM implementation", () => {
       expect(result.childNodes[0].childNodes[0]).to.be.an.instanceof(
         HTMLElement
       );
-      expect(result.childNodes[0].childNodes[0].tagName).to.equal("IMG");
+      console.log(result.childNodes);
+      console.log(result.children);
+      expect(result.childNodes[0].childNodes[0].tagName).to.equal("DIV");
       expect(result.childNodes[0].childNodes[1]).to.be.an.instanceof(
         HTMLElement
       );
-      expect(result.childNodes[0].childNodes[1].tagName).to.equal("DIV");
+      expect(result.childNodes[0].childNodes[1].tagName).to.be.undefined;
+      expect(result.childNodes[0].childNodes[2].tagName).to.equal("IMG");
     });
 
     it("should convert props to attributes", () => {
       expect(result.href).to.not.be.undefined;
-      expect(result.href).to.equal("https://codechrysalis.io");
+      expect(result.href).to.equal("https://codechrysalis.io/");
     });
   });
 

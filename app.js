@@ -16,9 +16,9 @@ function createElement(node) {
   node.children.forEach((child) => {
     if (typeof child === "object") {
       const childElement = createElement(child);
-      element.append(childElement);
+      element.appendChild(childElement);
     } else {
-      element.textContent = child;
+      element.appendChild(document.createTextNode(child));
     }
   });
   return element;
