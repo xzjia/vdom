@@ -37,8 +37,13 @@ function changed(node1, node2) {
 
 // eslint-disable-next-line no-unused-vars
 function updateElement(target, newNode, oldNode) {
-  target.innerHTML = createElement(newNode).innerHTML;
   Object.keys(newNode.props).forEach((key) => {
     target.setAttribute(key, newNode.props[key]);
   });
+  Object.keys(oldNode.props).forEach((key) => {
+    if (!(key in newNode.props)) {
+      target.removeAttribute(key);
+    }
+  });
+  target.innerHTML = createElement(newNode).innerHTML;
 }
