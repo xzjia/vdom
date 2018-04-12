@@ -8,7 +8,21 @@ function createVDOM(type, props = null, ...children) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function createElement(node) {}
+function createElement(node) {
+  const element = document.createElement(node.type);
+  for (let prop in node.props) {
+    element[prop] = node.props[prop];
+  }
+  node.children.forEach((child) => {
+    if (typeof child === "object") {
+      const childElement = createElement(child);
+      element.append(childElement);
+    } else {
+      element.textContent = child;
+    }
+  });
+  return element;
+}
 
 // eslint-disable-next-line no-unused-vars
 function changed(node1, node2) {

@@ -72,7 +72,24 @@ describe("vDOM implementation", () => {
 
     beforeEach(() => {
       // create your own seed elements or use the ones created above!
-      result = createElement(/* your seed elements */);
+      aProps = { href: "https://codechrysalis.io" };
+      divElement = createVDOM(
+        "div",
+        null,
+        createVDOM("div", null, "Great Grandchild"),
+        "text node",
+        createVDOM("img")
+      );
+      spanElement = createVDOM("span");
+      textElement = "Click Me";
+      seedElements = createVDOM(
+        "a",
+        aProps,
+        divElement,
+        spanElement,
+        textElement
+      );
+      result = createElement(seedElements);
     });
 
     it("should have a function called createElement", () => {
@@ -80,6 +97,7 @@ describe("vDOM implementation", () => {
     });
 
     it("should return an HTML Element", () => {
+      expect(result).to.be.an.instanceof(HTMLElement);
       expect(result.tagName).to.equal("A");
     });
 
@@ -90,13 +108,30 @@ describe("vDOM implementation", () => {
       |* This may be important for testing...
       |* ...ok, it obviously is, so take this clue into account.
       */
+      expect(result.childNodes[0]).to.be.an.instanceof(HTMLElement);
+      expect(result.childNodes[0].tagName).to.equal("DIV");
+      expect(result.childNodes[1].tagName).to.equal("SPAN");
+      expect(result.childNodes[2]).to.be.an.instanceof(Text);
+      expect(result.childNodes.length).to.equal(3);
+      expect(result.children.length).to.equal(2);
     });
 
     it("should convert grand childNodes to HTML", () => {
       // see the clue above for this
+      expect(result.childNodes[0].childNodes[0]).to.be.an.instanceof(
+        HTMLElement
+      );
+      expect(result.childNodes[0].childNodes[0].tagName).to.equal("IMG");
+      expect(result.childNodes[0].childNodes[1]).to.be.an.instanceof(
+        HTMLElement
+      );
+      expect(result.childNodes[0].childNodes[1].tagName).to.equal("DIV");
     });
 
-    it("should convert props to attributes", () => {});
+    it("should convert props to attributes", () => {
+      expect(result.href).to.not.be.undefined;
+      expect(result.href).to.equal("https://codechrysalis.io");
+    });
   });
 
   describe("updateElement function", () => {
