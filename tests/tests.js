@@ -121,12 +121,11 @@ describe("vDOM implementation", () => {
       expect(result.childNodes[0].childNodes[0]).to.be.an.instanceof(
         HTMLElement
       );
-      console.log(result.childNodes);
-      console.log(result.children);
-      expect(result.childNodes[0].childNodes[0].tagName).to.equal("DIV");
-      expect(result.childNodes[0].childNodes[1]).to.be.an.instanceof(
+      expect(result.childNodes[0].childNodes[0]).to.be.an.instanceof(
         HTMLElement
       );
+      expect(result.childNodes[0].childNodes[0].tagName).to.equal("DIV");
+      expect(result.childNodes[0].childNodes[1]).to.be.an.instanceof(Text);
       expect(result.childNodes[0].childNodes[1].tagName).to.be.undefined;
       expect(result.childNodes[0].childNodes[2].tagName).to.equal("IMG");
     });
@@ -194,8 +193,9 @@ describe("vDOM implementation", () => {
         createVDOM("a"),
         createVDOM("p", null, createVDOM("font"))
       );
+      //console.dir(target);
       updateElement(target, newNodeAddToBeginning, oldNode);
-
+      //console.dir(target);
       expect(target.childNodes.length).to.equal(3);
 
       expect(target.childNodes[0].nodeName).to.equal("SPAN");
