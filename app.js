@@ -14,10 +14,7 @@ function createElement(node) {
   }
   const element = document.createElement(node.type);
   for (let prop in node.props) {
-    if (prop === "class") {
-      element.classList.add(node.props[prop]);
-    }
-    element[prop] = node.props[prop];
+    element.setAttribute(prop, node.props[prop]);
   }
   node.children.forEach((child) => {
     if (typeof child === "object") {
@@ -40,17 +37,23 @@ function changed(node1, node2) {
 function propsDiffer(node1, node2) {
   if (!node1.props && !node2.props) return false;
   if (!node1.props || !node2.props) return true;
+  if (Object.keys(node1).length !== Object.keys(node2).length) return true;
   for (let prop in node1.props) {
-    if (!node2.props.hasOwnProperty(prop)) return true;
-    if (node2.props[prop] !== node1.props[prop]) return true;
+    if (
+      !node2.props.hasOwnProperty(prop) ||
+      node2.props[prop] !== node1.props[prop]
+    )
+      return true;
   }
   for (let prop in node2.props) {
-    if (!node1.props.hasOwnProperty(prop)) return true;
-    if (node2.props[prop] !== node1.props[prop]) return true;
+    if (
+      !node1.props.hasOwnProperty(prop) ||
+      node2.props[prop] !== node1.props[prop]
+    )
+      return true;
   }
   return false;
 }
-// parentNode!
 
 // eslint-disable-next-line no-unused-vars
 function updateElement(target, newNode, oldNode, parent = target.parentNode) {
